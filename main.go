@@ -3,13 +3,27 @@ package main
 import (
 	"fmt"
 	"os"
+	"runtime/debug"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/timmattison/golang-bubbletea-tool-template/support"
-	main_model "github.com/timmattison/golang-bubbletea-tool-template/tui/main-model"
+	"github.com/timmattison/golang-bubbletea-tool-template/tui/main-model"
 )
 
+var commit = func() string {
+	if info, ok := debug.ReadBuildInfo(); ok {
+		for _, setting := range info.Settings {
+			if setting.Key == "vcs.revision" {
+				return fmt.Sprintf("commit - %s", setting.Value)
+			}
+		}
+	}
+	return "NO COMMIT HASH FOUND - DEBUG VERSION ONLY - NOT FOR PRODUCTION USE"
+}()
+
 func main() {
+	fmt.Println(commit)
+
 	myModel := main_model.New()
 	// myModel := main_model.MainModel{}
 
