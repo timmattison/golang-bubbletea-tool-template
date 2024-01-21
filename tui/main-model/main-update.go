@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/timmattison/golang-bubbletea-tool-template/support"
+	"github.com/timmattison/golang-bubbletea-tool-template/global"
 )
 
 func (m MainModel) Update(untypedMessage tea.Msg) (tea.Model, tea.Cmd) {
@@ -22,27 +22,27 @@ func (m MainModel) Update(untypedMessage tea.Msg) (tea.Model, tea.Cmd) {
 		m.Screen1, cmd = m.Screen1.Update(untypedMessage)
 		cmds = append(cmds, cmd)
 	default:
-		m.FatalError = support.FatalErrorMsg{Err: fmt.Errorf("invalid session state")}
+		m.FatalError = global.FatalErrorMsg{Err: fmt.Errorf("invalid session state")}
 	}
 
 	switch typedMessage := untypedMessage.(type) {
-	case support.FatalErrorMsg:
+	case global.FatalErrorMsg:
 		m.FatalError = typedMessage
 
-	case support.NonFatalErrorMsg:
+	case global.NonFatalErrorMsg:
 		m.NonFatalError = typedMessage
-		cmds = append(cmds, support.ClearErrorAfter(2))
+		cmds = append(cmds, global.ClearErrorAfter(2))
 
 	case tea.KeyMsg:
 		if typedMessage.Type == tea.KeyCtrlC || typedMessage.Type == tea.KeyEsc {
 			m.Quitting = true
 		}
 
-	case support.ClearErrorMsg:
-		m.NonFatalError = support.EmptyNonFatalErrorMsg
+	case global.ClearErrorMsg:
+		m.NonFatalError = global.EmptyNonFatalErrorMsg
 	}
 
-	if !errors.Is(m.FatalError, support.EmptyFatalErrorMsg) || m.Quitting {
+	if !errors.Is(m.FatalError, global.EmptyFatalErrorMsg) || m.Quitting {
 		cmds = append(cmds, tea.Quit)
 	}
 

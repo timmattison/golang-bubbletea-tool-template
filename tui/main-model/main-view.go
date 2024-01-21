@@ -6,17 +6,17 @@ import (
 	"strings"
 
 	"github.com/muesli/reflow/indent"
-	"github.com/timmattison/golang-bubbletea-tool-template/support"
+	"github.com/timmattison/golang-bubbletea-tool-template/global"
 )
 
 func (m MainModel) View() string {
 	var output strings.Builder
 
-	if !errors.Is(m.FatalError, support.EmptyFatalErrorMsg) {
+	if !errors.Is(m.FatalError, global.EmptyFatalErrorMsg) {
 		output.WriteString(fmt.Sprintf("Fatal error: %v\n", m.FatalError.Err))
 	}
 
-	if !errors.Is(m.NonFatalError, support.EmptyNonFatalErrorMsg) {
+	if !errors.Is(m.NonFatalError, global.EmptyNonFatalErrorMsg) {
 		output.WriteString(fmt.Sprintf("Non-fatal error: %v\n", m.NonFatalError.Err))
 	}
 

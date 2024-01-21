@@ -1,4 +1,4 @@
-package support
+package global
 
 import (
 	"time"

@@ -4,7 +4,7 @@ import (
 	"log/slog"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/timmattison/golang-bubbletea-tool-template/support"
+	"github.com/timmattison/golang-bubbletea-tool-template/global"
 	"github.com/timmattison/golang-bubbletea-tool-template/tui/screen-1"
 )
 
@@ -19,8 +19,8 @@ type MainModel struct {
 	SessionState  SessionState
 	Screen1       screen_1.Screen1Model
 	Quitting      bool
-	NonFatalError support.NonFatalErrorMsg
-	FatalError    support.FatalErrorMsg
+	NonFatalError global.NonFatalErrorMsg
+	FatalError    global.FatalErrorMsg
 	initialized   bool
 }
 

@@ -6,7 +6,7 @@ import (
 	"runtime/debug"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/timmattison/golang-bubbletea-tool-template/support"
+	"github.com/timmattison/golang-bubbletea-tool-template/global"
 	"github.com/timmattison/golang-bubbletea-tool-template/tui/main-model"
 )
 
@@ -27,9 +27,9 @@ func main() {
 	myModel := main_model.New()
 	// myModel := main_model.MainModel{}
 
-	support.Program = tea.NewProgram(&myModel)
+	global.Program = tea.NewProgram(&myModel)
 
-	if _, err := support.Program.Run(); err != nil {
+	if _, err := global.Program.Run(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}

@@ -2,7 +2,7 @@ package screen_1
 
 import (
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/timmattison/golang-bubbletea-tool-template/support"
+	"github.com/timmattison/golang-bubbletea-tool-template/global"
 )
 
 func (m Screen1Model) Update(untypedMsg tea.Msg) (Screen1Model, tea.Cmd) {
@@ -17,7 +17,7 @@ func (m Screen1Model) Update(untypedMsg tea.Msg) (Screen1Model, tea.Cmd) {
 
 	if m.Err != nil {
 		cmds = append(cmds, func() tea.Msg {
-			return support.FatalErrorMsg{Err: m.Err}
+			return global.FatalErrorMsg{Err: m.Err}
 		})
 		cmds = append(cmds, tea.Quit)
 	}
