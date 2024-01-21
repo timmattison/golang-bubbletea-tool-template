@@ -3,12 +3,18 @@ package main_model
 import (
 	"errors"
 	"fmt"
+	"log/slog"
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/timmattison/golang-bubbletea-tool-template/global"
 )
 
-func (m MainModel) Update(untypedMessage tea.Msg) (tea.Model, tea.Cmd) {
+func (m *MainModel) Update(untypedMessage tea.Msg) (tea.Model, tea.Cmd) {
+	if !m.initialized {
+		slog.Error("Main model was not initialized with Init, cannot continue")
+		return m, tea.Quit
+	}
+
 	var cmd tea.Cmd
 	var cmds []tea.Cmd
 

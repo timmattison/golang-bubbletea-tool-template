@@ -1,11 +1,18 @@
 package screen_1
 
 import (
+	"log/slog"
+
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/timmattison/golang-bubbletea-tool-template/global"
 )
 
-func (m Screen1Model) Update(untypedMsg tea.Msg) (Screen1Model, tea.Cmd) {
+func (m *Screen1Model) Update(untypedMsg tea.Msg) (Screen1Model, tea.Cmd) {
+	if !m.initialized {
+		slog.Error("Screen 1 was not initialized with Init, cannot continue")
+		return *m, tea.Quit
+	}
+
 	var cmd tea.Cmd
 	var cmds []tea.Cmd
 
@@ -22,5 +29,5 @@ func (m Screen1Model) Update(untypedMsg tea.Msg) (Screen1Model, tea.Cmd) {
 		cmds = append(cmds, tea.Quit)
 	}
 
-	return m, tea.Batch(cmds...)
+	return *m, tea.Batch(cmds...)
 }

@@ -21,6 +21,7 @@ type MainModel struct {
 	Quitting      bool
 	NonFatalError global.NonFatalErrorMsg
 	FatalError    global.FatalErrorMsg
+	newed         bool
 	initialized   bool
 }
 
@@ -30,15 +31,17 @@ func New() MainModel {
 	return MainModel{
 		SessionState: NotInitialized,
 		Screen1:      screen1,
-		initialized:  true,
+		newed:        true,
 	}
 }
 
-func (m MainModel) Init() tea.Cmd {
-	if !m.initialized {
-		slog.Error("Main model was not initialized properly, cannot continue")
+func (m *MainModel) Init() tea.Cmd {
+	if !m.newed {
+		slog.Error("Main model was not created with New, cannot continue")
 		return tea.Quit
 	}
+
+	m.initialized = true
 
 	return tea.Batch(
 		m.Screen1.Init(),

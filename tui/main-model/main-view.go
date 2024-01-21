@@ -3,13 +3,19 @@ package main_model
 import (
 	"errors"
 	"fmt"
+	"log/slog"
 	"strings"
 
 	"github.com/muesli/reflow/indent"
 	"github.com/timmattison/golang-bubbletea-tool-template/global"
 )
 
-func (m MainModel) View() string {
+func (m *MainModel) View() string {
+	if !m.initialized {
+		slog.Error("Main model was not initialized with Init, cannot continue")
+		return ""
+	}
+
 	var output strings.Builder
 
 	if !errors.Is(m.FatalError, global.EmptyFatalErrorMsg) {

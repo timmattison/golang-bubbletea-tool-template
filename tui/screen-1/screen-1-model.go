@@ -12,6 +12,7 @@ type Screen1Model struct {
 	Message        string
 	WaitingSpinner spinner.Model
 	Err            error
+	newed          bool
 	initialized    bool
 }
 
@@ -23,15 +24,17 @@ func New() Screen1Model {
 	return Screen1Model{
 		Message:        "This is screen 1",
 		WaitingSpinner: waitingSpinner,
-		initialized:    true,
+		newed:          true,
 	}
 }
 
-func (m Screen1Model) Init() tea.Cmd {
-	if !m.initialized {
-		slog.Error("Screen 1 was not initialized properly, cannot continue")
+func (m *Screen1Model) Init() tea.Cmd {
+	if !m.newed {
+		slog.Error("Screen 1 was not created with New, cannot continue")
 		return tea.Quit
 	}
+
+	m.initialized = true
 
 	return m.WaitingSpinner.Tick
 }
