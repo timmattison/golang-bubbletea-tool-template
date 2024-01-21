@@ -21,8 +21,10 @@ type MainModel struct {
 	Quitting      bool
 	NonFatalError global.NonFatalErrorMsg
 	FatalError    global.FatalErrorMsg
-	newed         bool
-	initialized   bool
+	// newed       indicates if the model was created with New
+	newed bool
+	// initialized indicates if the model's Init function has been called
+	initialized bool
 }
 
 func New() MainModel {

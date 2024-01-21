@@ -12,8 +12,10 @@ type Screen1Model struct {
 	Message        string
 	WaitingSpinner spinner.Model
 	Err            error
-	newed          bool
-	initialized    bool
+	// newed       indicates if the model was created with New
+	newed bool
+	// initialized indicates if the model's Init function has been called
+	initialized bool
 }
 
 func New() Screen1Model {
